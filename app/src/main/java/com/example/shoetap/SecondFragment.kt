@@ -1,5 +1,6 @@
 package com.example.shoetap
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.shoetap.databinding.FragmentSecondBinding
+import com.example.shoetap.models.Shoe
+import com.example.shoetap.models.ShoeTapApplication.Companion.prefs
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -23,6 +26,8 @@ class SecondFragment : Fragment() {
     private var ARG_PARAM_TITLE = "title"
     private var ARG_PARAM_DESCRIPTION = "description"
     private var ARG_PARAM_PRICE = "price"
+    var shoeSaved: Shoe? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,6 +41,8 @@ class SecondFragment : Fragment() {
             mParam3 = arguments?.getString(ARG_PARAM_DESCRIPTION);
             mParam4 = arguments?.getString(ARG_PARAM_PRICE);
         }
+
+
     }
 
     override fun onCreateView(
@@ -54,10 +61,24 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnAddToCart.setOnClickListener {
+        shoeSaved = Shoe(binding.title2.text.toString(), binding.description2.text.toString(),
+            binding.price2.text.toString(),binding.image2.toString())
+        initUI()
+        binding.btnGoToCart.setOnClickListener{
             findNavController().navigate(R.id.action_SecondFragment_to_shoppingCartFragment)
         }
+
+    }
+
+    private fun initUI() {
+        binding.btnAddToCart.setOnClickListener {
+            accessToDetail()
+            findNavController().navigate(R.id.action_SecondFragment_to_shoppingCartFragment)
+        }
+    }
+
+    private fun accessToDetail() {
+        shoeSaved?.let { prefs.saveShoe(it) }
     }
 
     override fun onDestroyView() {
