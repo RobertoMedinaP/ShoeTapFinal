@@ -12,8 +12,9 @@ import com.example.shoetap.models.Shoe
 import com.example.shoetap.models.ShoeProvider
 
 
-class ShoeListAdapter (private val returnItemList: List<Shoe>?, passElementSelected: PassElementSelected) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
+class ShoeListAdapter (private val returnItemList: List<Shoe>?) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
 
+    var onItemClick : ((Shoe) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoeListViewHolder {
         val binding: ItemViewBinding =
@@ -27,6 +28,9 @@ class ShoeListAdapter (private val returnItemList: List<Shoe>?, passElementSelec
         holder.title_view.text = item.name.toString()
         holder.descript_view.text = item.description.toString()
         holder.price_view.text = item.price.toString()
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke( item )
+        }
     }
 
     override fun getItemCount(): Int = returnItemList!!.size

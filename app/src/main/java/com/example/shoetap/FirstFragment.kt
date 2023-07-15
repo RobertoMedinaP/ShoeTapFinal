@@ -44,9 +44,15 @@ class FirstFragment : Fragment(),ShoeListAdapter.PassElementSelected {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.setHasFixedSize(true)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        adapter.onItemClick = {
+            val bundle = Bundle()
+            bundle.putString("url", it.url)
+            bundle.putString("title", it.name)
+            bundle.putString("description", it.description)
+            bundle.putString("price", it.price)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
+
 
     }
 
