@@ -2,6 +2,7 @@ package com.example.shoetap
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,7 @@ class SecondFragment : Fragment() {
 
     private fun accessToDetail() {
         shoeSaved?.let { prefs.saveShoe(it) }
+
     }
 
     override fun onDestroyView() {

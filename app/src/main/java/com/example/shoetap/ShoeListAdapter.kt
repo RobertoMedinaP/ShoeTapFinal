@@ -3,6 +3,7 @@ package com.example.shoetap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,8 @@ import com.example.shoetap.databinding.ItemViewBinding
 import com.example.shoetap.models.Shoe
 import com.example.shoetap.models.ShoeProvider
 
-
-class ShoeListAdapter (private val returnItemList: List<Shoe>?) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
+// al adapter le puse un boolean para hacer el boton visible o no
+class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvisible: Boolean) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
 
     var onItemClick : ((Shoe) -> Unit)? = null
 
@@ -31,6 +32,15 @@ class ShoeListAdapter (private val returnItemList: List<Shoe>?) : RecyclerView.A
         holder.itemView.setOnClickListener{
             onItemClick?.invoke( item )
         }
+        //visibilidad del boton
+        if (esvisible){
+            holder.boton.visibility=View.VISIBLE
+            //aca voy a intentar darle funcion al boton
+            holder.boton.setOnClickListener{
+                returnItemList?.remove(item)
+                notifyItemRemoved(position)
+            }
+        }
     }
 
     override fun getItemCount(): Int = returnItemList!!.size
@@ -42,12 +52,16 @@ class ShoeListAdapter (private val returnItemList: List<Shoe>?) : RecyclerView.A
         var image_view: ImageView
         var descript_view: TextView
         var price_view: TextView
+        //se crea el boton
+        var boton: Button
 
         init {
             image_view = binding.image
             title_view = binding.title
             descript_view = binding.description
             price_view = binding.price
+            //se inicializa
+            boton= binding.bteliminar
         }
 
     }

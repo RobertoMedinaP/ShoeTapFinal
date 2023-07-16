@@ -39,7 +39,7 @@ class FirstFragment : Fragment(),ShoeListAdapter.PassElementSelected {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ShoeListAdapter(ShoeProvider.ShoeList)
+        val adapter = ShoeListAdapter(ShoeProvider.ShoeList,false)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.setHasFixedSize(true)
@@ -68,7 +68,7 @@ class FirstFragment : Fragment(),ShoeListAdapter.PassElementSelected {
         bundle.putString("description", description)
         bundle.putString("price", price)
 
-        val navController: NavController = Navigation.findNavController(activity!!, R.id.recyclerView)
+        val navController: NavController = Navigation.findNavController(requireActivity(), R.id.recyclerView)
         navController.navigate(
             R.id.action_FirstFragment_to_SecondFragment,
             bundle

@@ -2,7 +2,8 @@ package com.example.shoetap.models
 
 class ShoeProvider {
     companion object{
-        val ShoeList = listOf<Shoe>(
+        //Cambio a mutable list
+        val ShoeList = mutableListOf<Shoe>(
             Shoe(
                 "Nike Air Force 1 07 LV8",
                 "Zapatillas para Hombre",

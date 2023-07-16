@@ -1,10 +1,18 @@
 package com.example.shoetap
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shoetap.databinding.FragmentFirstBinding
+import com.example.shoetap.databinding.FragmentShoppingCartBinding
+import com.example.shoetap.models.Shoe
+import com.example.shoetap.models.ShoeProvider
+import com.example.shoetap.models.ShoeTapApplication
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,12 @@ class ShoppingCartFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    //agregué binding
+    private var _binding: FragmentShoppingCartBinding? = null
+    private val binding get() = _binding!!
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,9 +47,55 @@ class ShoppingCartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //inflé con binding
+        _binding=FragmentShoppingCartBinding.inflate(inflater,container,false)
+        return binding.root
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_cart, container, false)
+       // return inflater.inflate(R.layout.fragment_shopping_cart, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // una nueva lista de zapatos que son los que estaran en el carro
+         var zapatoEnCarro: MutableList<Shoe> = mutableListOf<Shoe>()
+        //lista original
+        var lista=ShoeProvider.ShoeList
+        //los datos de sharedpreferences
+        var preferencia= context?.getSharedPreferences("MyShoesDB",Context.MODE_PRIVATE)
+        //el editor
+        var editor= preferencia?.edit()
+
+        //en la lista vamos a compararar con el original
+
+        lista.forEach{
+
+            //si en sharedpref esta el nombre
+            if (preferencia!!.contains(it.name)){
+                //lo agregamos a nuestra nueva lista
+                zapatoEnCarro.add(it)
+
+            }
+
+        }
+        // aca usamos el mismo adapter pero pasandole la nueva lista
+        //la nueva lista es mutable porque va cambiando con el uso
+        val adapter = ShoeListAdapter(zapatoEnCarro, true)
+        binding.rv2.adapter = adapter
+        binding.rv2.layoutManager = LinearLayoutManager(context)
+        binding.rv2.setHasFixedSize(true)
+
+        binding.fabclear.setOnClickListener{
+            //borro toda la lista
+            zapatoEnCarro.clear()
+            //le aviso al adapter
+            adapter.notifyDataSetChanged()
+        }
+
+
+    }
+
+
 
     companion object {
         /**
