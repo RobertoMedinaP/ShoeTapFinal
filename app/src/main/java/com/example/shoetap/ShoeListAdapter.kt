@@ -1,5 +1,6 @@
 package com.example.shoetap
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,13 @@ import com.example.shoetap.models.ShoeProvider
 class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvisible: Boolean) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
 
     var onItemClick : ((Shoe) -> Unit)? = null
+
+
+
+   /* var preferencia= context?.getSharedPreferences("MyShoesDB", Context.MODE_PRIVATE)
+    //el editor
+    var editor= preferencia?.edit()*/
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoeListViewHolder {
         val binding: ItemViewBinding =
@@ -39,6 +47,8 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
             holder.boton.setOnClickListener{
                 returnItemList?.remove(item)
                 notifyItemRemoved(position)
+                //TODO remover de sharedpreferences
+
             }
         }
     }

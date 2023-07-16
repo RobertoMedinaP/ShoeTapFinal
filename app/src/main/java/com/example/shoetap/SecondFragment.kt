@@ -80,7 +80,7 @@ class SecondFragment : Fragment() {
 
     private fun accessToDetail() {
         shoeSaved?.let { prefs.saveShoe(it) }
-
+    //TODO llamar a esto
     }
 
     override fun onDestroyView() {

@@ -50,8 +50,7 @@ class ShoppingCartFragment : Fragment() {
         //inflé con binding
         _binding=FragmentShoppingCartBinding.inflate(inflater,container,false)
         return binding.root
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_shopping_cart, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +61,7 @@ class ShoppingCartFragment : Fragment() {
         //lista original
         var lista=ShoeProvider.ShoeList
         //los datos de sharedpreferences
+        //TODO revisar esta llamada
         var preferencia= context?.getSharedPreferences("MyShoesDB",Context.MODE_PRIVATE)
         //el editor
         var editor= preferencia?.edit()
@@ -90,6 +90,11 @@ class ShoppingCartFragment : Fragment() {
             zapatoEnCarro.clear()
             //le aviso al adapter
             adapter.notifyDataSetChanged()
+            //le digo al editor que borre todas las sharedpreferenes
+            editor?.clear()
+            //se aplican los cambios
+            editor?.apply()
+
         }
 
 
