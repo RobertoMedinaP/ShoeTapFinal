@@ -1,6 +1,7 @@
 package com.example.shoetap
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +11,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shoetap.databinding.ItemViewBinding
+import com.example.shoetap.models.Prefs
 import com.example.shoetap.models.Shoe
 import com.example.shoetap.models.ShoeProvider
+import java.util.prefs.Preferences
 
 // al adapter le puse un boolean para hacer el boton visible o no
-class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvisible: Boolean) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
+//entregar contexto a la clase
+class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvisible: Boolean, val context: Context?=null) : RecyclerView.Adapter<ShoeListAdapter.ShoeListViewHolder>() {
 
     var onItemClick : ((Shoe) -> Unit)? = null
 
-
-
-   /* var preferencia= context?.getSharedPreferences("MyShoesDB", Context.MODE_PRIVATE)
-    //el editor
-    var editor= preferencia?.edit()*/
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoeListViewHolder {
@@ -33,6 +32,11 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
 
     override fun onBindViewHolder(holder: ShoeListViewHolder, position: Int) {
         val item = returnItemList!![position]
+
+        val elegida=context?.getSharedPreferences("MyShoesDB",Context.MODE_PRIVATE)
+        var editar= elegida?.edit()
+
+
         Glide.with(holder.image_view).load(item.url).into(holder.image_view)
         holder.title_view.text = item.name.toString()
         holder.descript_view.text = item.description.toString()
@@ -47,6 +51,9 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
             holder.boton.setOnClickListener{
                 returnItemList?.remove(item)
                 notifyItemRemoved(position)
+                editar?.remove(item.name)?.apply()
+
+
                 //TODO remover de sharedpreferences
 
             }
@@ -64,6 +71,8 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
         var price_view: TextView
         //se crea el boton
         var boton: Button
+
+
 
         init {
             image_view = binding.image
