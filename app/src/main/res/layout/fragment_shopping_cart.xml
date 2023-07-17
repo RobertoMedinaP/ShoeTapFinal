@@ -11,7 +11,12 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Es es el carrito de compras"
+        android:fontFamily="@font/alata"
+        android:text="¡Estás en el Carro de Compras!"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,14 +31,18 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabclear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
+        android:layout_height="53dp"
         android:layout_marginBottom="80dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="esta bien"
+        android:src="@drawable/baseline_delete_outline_24"
+        app:backgroundTint="@color/white"
+        app:iconSize="@android:dimen/app_icon_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.845"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="@android:dimen/app_icon_size" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

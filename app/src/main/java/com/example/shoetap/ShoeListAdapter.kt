@@ -32,7 +32,7 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
 
     override fun onBindViewHolder(holder: ShoeListViewHolder, position: Int) {
         val item = returnItemList!![position]
-
+        //con el contexto llamamos a las sharedpreferences
         val elegida=context?.getSharedPreferences("MyShoesDB",Context.MODE_PRIVATE)
         var editar= elegida?.edit()
 
@@ -51,10 +51,9 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
             holder.boton.setOnClickListener{
                 returnItemList?.remove(item)
                 notifyItemRemoved(position)
+                //borramos de las sharedpreferences segun el nombre
                 editar?.remove(item.name)?.apply()
 
-
-                //TODO remover de sharedpreferences
 
             }
         }
