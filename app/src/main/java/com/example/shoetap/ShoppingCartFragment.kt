@@ -80,7 +80,7 @@ class ShoppingCartFragment : Fragment() {
         }
         // aca usamos el mismo adapter pero pasandole la nueva lista
         //la nueva lista es mutable porque va cambiando con el uso
-        val adapter = ShoeListAdapter(zapatoEnCarro, true)
+        val adapter = ShoeListAdapter(zapatoEnCarro, true,context)
         binding.rv2.adapter = adapter
         binding.rv2.layoutManager = LinearLayoutManager(context)
         binding.rv2.setHasFixedSize(true)
