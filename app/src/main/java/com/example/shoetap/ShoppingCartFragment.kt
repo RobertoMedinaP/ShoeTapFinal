@@ -14,26 +14,17 @@ import com.example.shoetap.models.Shoe
 import com.example.shoetap.models.ShoeProvider
 import com.example.shoetap.models.ShoeTapApplication
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ShoppingCartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ShoppingCartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     //agregué binding
     private var _binding: FragmentShoppingCartBinding? = null
     private val binding get() = _binding!!
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +41,6 @@ class ShoppingCartFragment : Fragment() {
         //inflé con binding
         _binding=FragmentShoppingCartBinding.inflate(inflater,container,false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +51,6 @@ class ShoppingCartFragment : Fragment() {
         //lista original
         var lista=ShoeProvider.ShoeList
         //los datos de sharedpreferences
-        //TODO revisar esta llamada
         var preferencia= context?.getSharedPreferences("MyShoesDB",Context.MODE_PRIVATE)
         //el editor
         var editor= preferencia?.edit()
@@ -74,10 +63,9 @@ class ShoppingCartFragment : Fragment() {
             if (preferencia!!.contains(it.name)){
                 //lo agregamos a nuestra nueva lista
                 zapatoEnCarro.add(it)
-
             }
-
         }
+
         // aca usamos el mismo adapter pero pasandole la nueva lista
         //la nueva lista es mutable porque va cambiando con el uso
         val adapter = ShoeListAdapter(zapatoEnCarro, true,context)
@@ -94,24 +82,12 @@ class ShoppingCartFragment : Fragment() {
             editor?.clear()
             //se aplican los cambios
             editor?.apply()
-
         }
-
-
     }
 
 
-
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShoppingCartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ShoppingCartFragment().apply {

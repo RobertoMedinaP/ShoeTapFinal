@@ -13,9 +13,6 @@ import com.example.shoetap.databinding.FragmentSecondBinding
 import com.example.shoetap.models.Shoe
 import com.example.shoetap.models.ShoeTapApplication.Companion.prefs
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
@@ -30,8 +27,6 @@ class SecondFragment : Fragment() {
     var shoeSaved: Shoe? = null
 
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +37,6 @@ class SecondFragment : Fragment() {
             mParam3 = arguments?.getString(ARG_PARAM_DESCRIPTION);
             mParam4 = arguments?.getString(ARG_PARAM_PRICE);
         }
-
-
     }
 
     override fun onCreateView(
@@ -57,7 +50,6 @@ class SecondFragment : Fragment() {
         binding.description2.text = mParam3.toString()
         binding.price2.text = mParam4.toString()
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +60,6 @@ class SecondFragment : Fragment() {
         binding.btnGoToCart.setOnClickListener{
             findNavController().navigate(R.id.action_SecondFragment_to_shoppingCartFragment)
         }
-
     }
 
     private fun initUI() {
@@ -80,7 +71,6 @@ class SecondFragment : Fragment() {
 
     private fun accessToDetail() {
         shoeSaved?.let { prefs.saveShoe(it) }
-    //TODO llamar a esto
     }
 
     override fun onDestroyView() {

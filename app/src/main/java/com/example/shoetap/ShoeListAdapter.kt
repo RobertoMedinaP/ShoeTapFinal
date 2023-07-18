@@ -22,8 +22,6 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
 
     var onItemClick : ((Shoe) -> Unit)? = null
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoeListViewHolder {
         val binding: ItemViewBinding =
             ItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -53,8 +51,6 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
                 notifyItemRemoved(position)
                 //borramos de las sharedpreferences segun el nombre
                 editar?.remove(item.name)?.apply()
-
-
             }
         }
     }
@@ -71,8 +67,6 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
         //se crea el boton
         var boton: Button
 
-
-
         init {
             image_view = binding.image
             title_view = binding.title
@@ -81,7 +75,6 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
             //se inicializa
             boton= binding.bteliminar
         }
-
     }
 
     interface PassElementSelected {
@@ -91,6 +84,5 @@ class ShoeListAdapter (private var returnItemList: MutableList<Shoe>?, val esvis
 
     //el escuchador para la interfaz, estatico para que no modifique el dato
     private val listener: PassElementSelected? = null
-
 }
 
